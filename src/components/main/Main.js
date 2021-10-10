@@ -3,6 +3,7 @@ import TextFiled from './TextFiled'
 import Quantity from './Quantity'
 import '../../css/general.css'
 import Information from './Information'
+import Options from './Options'
 
 export default class Main extends Component {
     render() {
@@ -11,6 +12,7 @@ export default class Main extends Component {
                 <Quantity/>
                 <TextFiled/>
                 <Information/>
+                <Options/>
             </div>
         )
     }

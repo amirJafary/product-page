@@ -1,9 +1,9 @@
 .main{
-    width: 73%;
+    width: 68%;
 }
 
 .sideBar{
-    width: 25%;
+    width: 30%;
 }
 
 .bd{
@@ -51,10 +51,27 @@
     font-size: 20px !important;
 } 
 
+.fs12{
+    font-size: 12px !important;
+}
+
 .p-0{
     padding: 0 !important;
 }
 
 .m-0{
     margin: 0 !important;
+}
+
+.TAC{
+    text-align: center !important;
+}
+
+.turnaround{
+    background-color: #eee;
+    border-radius: 5px;
+    margin-right: 40px;
+    max-width: fit-content;
+    padding: 7px 15px;
+    text-align: center;
 }

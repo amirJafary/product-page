@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import TextFiled from './main/TextFiled'
 import Main from './main/Main'
 import SideBar from './SideBar'
 
 
 export default class App extends Component {
-
-    getPrintingFeature = ()=>{
-        axios.get('http://172.17.17.101:8088/api/en/Nas/Product/GetPrintingFeature?&Id=7766')
-            .then(response =>
-                console.info(response.data.messageItems[0].data)
-            )
-    }
 
     getProductInfo=()=>{
         axios.get('http://172.17.17.101:8088/api/en/Nas/Product/GetProductInfo?&id=7766&title=is+not+valid+now')
@@ -29,9 +21,8 @@ export default class App extends Component {
     }
 
     componentDidMount(){
-        // this.getPrintingFeature();
-        // this.getProductInfo();
-        this.getBasicPrice();
+        this.getProductInfo();
+        // this.getBasicPrice();
     }
 
     render() {

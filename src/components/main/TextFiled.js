@@ -43,7 +43,7 @@ export default class Inputs extends Component {
     
     render(){
         return (
-            <>
+            <div className='mb-5 mt-5'>
             <label className='ms-1 mt-2 p-0 m-0'>Series</label>
             <label className='mt-2 p-0 ' style={{marginInlineStart:'330px'}}>Quantity</label>
             <br/>
@@ -92,7 +92,7 @@ export default class Inputs extends Component {
                 +
             </button>
         </span>
-        </>
+        </div>
         );  
     }
 }
