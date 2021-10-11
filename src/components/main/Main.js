@@ -4,6 +4,7 @@ import Quantity from './Quantity'
 import '../../css/general.css'
 import Information from './Information'
 import Options from './Options'
+import Dimension from './Dimension'
 
 export default class Main extends Component {
     render() {
@@ -13,6 +14,7 @@ export default class Main extends Component {
                 <TextFiled/>
                 <Information/>
                 <Options/>
+                <Dimension/>
             </div>
         )
     }

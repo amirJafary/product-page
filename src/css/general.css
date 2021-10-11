@@ -67,6 +67,81 @@
     text-align: center !important;
 }
 
+.bg-eee{
+    background-color: #eee;
+    width:100%;
+    border: 1px solid #ccc;
+    border-right: none;
+}
+
+.bdr{
+    border-right: 1px solid #ccc !important;
+}
+
+.BTN2{
+    outline: none !important;
+    background-color: white !important;
+    border: 1px solid rgb(0, 0, 0) !important;
+    padding: 10px 15px !important;
+    color: rgb(0, 0, 0) !important;
+    border-radius: 5px !important;
+    overflow: hidden !important;
+    margin-right: 7px !important;
+    box-shadow: 0 2px 4px #ccc !important;
+    margin-top: 30px !important;
+    text-transform: capitalize !important;
+    cursor: pointer !important;
+    font-weight: 700 !important;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+    width: 550px !important;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+}
+
+.fs15{
+    font-size: 13.5px;
+}
+
+.m-20{
+    margin-right:235px
+}
+
+.MuiPaper-root{
+    padding: 20px !important;
+}
+
+.menu{
+    margin:10px 20px 0 0 !important;
+}
+
+.BTN3{
+    outline: none;
+    background-color: rgb(190, 0, 0);
+    border: 1px solid rgb(126, 1, 1);
+    padding: 10px 15px !important;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 7px;
+    box-shadow: 0 2px 4px #ccc;
+    font-size: 13px !important;
+    margin-top: 30px;
+    float: right;
+    margin-bottom: 20px !important;
+}
+
+.BTN3:hover{
+    background-color: rgb(220, 0, 0);
+}
+
+.border-dimension{
+    border: 1px solid #ccc;
+    border-top: none;
+    border-right: none;
+}
+
 .turnaround{
     background-color: #eee;
     border-radius: 5px;
