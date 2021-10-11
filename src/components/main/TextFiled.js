@@ -14,32 +14,42 @@ export default class Inputs extends Component {
         }
     }
 
+    statesOfComponent=(value , series)=>{
+        this.setState({
+            defaultValue:value ,
+            series:series
+        })
+    }
+
     minus=(series)=>{
         if(this.state.defaultValue>1000)
         this.setState({
             defaultValue:this.state.defaultValue-(1000),
-        },()=>console.info(this.state.defaultValue))
+            series:this.state.series-1
+        },()=>this.statesOfComponent(this.state.defaultValue , this.state.series))
     }
 
-    plus=(series)=>{
+    plus=()=>{
         this.setState({
             defaultValue:this.state.defaultValue+1000,
-        },()=>console.info(this.state.defaultValue))
+            series:this.state.series+1
+        },()=>this.statesOfComponent(this.state.defaultValue , this.state.series))
     }
     
     minus1=()=>{
         if(this.state.series>1)
         this.setState({
             series:this.state.series-1,
-        },()=>console.info(this.state.series))
+            defaultValue:this.state.defaultValue-(1000),
+        },()=>this.statesOfComponent(this.state.defaultValue , this.state.series))
     }
 
     plus1=()=>{
         this.setState({
             series:this.state.series+1,
-        },()=>console.info(this.state.series))
+            defaultValue:this.state.series*1000+1000,
+        },()=>this.statesOfComponent(this.state.defaultValue , this.state.series))
     }
-
     
     render(){
         return (
