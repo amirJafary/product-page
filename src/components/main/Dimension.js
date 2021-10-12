@@ -17,10 +17,13 @@ class Dimension extends Component {
                     <div>
                         <label className='bg-eee px-3 py-1 mb-2 TAC bold bdr'>Price</label>
                         <br/>
-                        <span className='px-3 py-2 border-dimension bdr'>30.00 AED</span>
+                        <span className='px-3 py-2 border-dimension bdr'>{this.props.series*30}.00 AED</span>
                     </div>
                 </div>
-                <MenuButton/>
+                <MenuButton
+                    getStateHeight={(height)=>this.props.getStateHeight(height)}
+                    getStateWidth={(width)=>this.props.getStateWidth(width)}
+                />
                 <br/>
                 <button className='BTN3'> start ordering </button>
             </div>

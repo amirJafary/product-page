@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../../css/general.css'
 import Input from '@mui/material/Input';
-
+import axios from 'axios'
 
 const ariaLabel = { 'aria-label': 'description' };
 
@@ -12,6 +12,10 @@ export default class Inputs extends Component {
         this.state={
             defaultValue:1000,
             series:1,
+            printedSides:null,
+            turnaround:null,
+            selectedId:null,
+            
         }
     }
 
@@ -43,6 +47,58 @@ export default class Inputs extends Component {
             series:this.state.series+1,
             defaultValue:this.state.series*1000+1000,
         },()=>this.props.statesOfComponent(this.state.defaultValue , this.state.series))
+    }
+
+    getProductPrintingSidesAndTurnaround=()=>{
+        axios.get('http://172.17.17.101:8088/api/en/Nas/Product/GetPrintingFeature?&Id=7766')
+        .then(response =>
+            this.setState({
+                printedSides:response.data.messageItems[0].data.printedSides[0].key,
+                turnaround:response.data.messageItems[0].data.turnarounds[0].key
+            },()=>
+            this.getPrice())
+
+            // console.info('this is response of get product info ',response.data.messageItems[0].data.turnarounds[0].key)
+        )
+    }
+
+    getProductInfo=()=>{
+        axios.get('http://172.17.17.101:8088/api/en/Nas/Product/GetProductInfo?&id=7766&title=is+not+valid+now')
+        .then(response => {
+
+                this.setState({
+                    selectedId:response.data.messageItems[0].data.selectedId
+                },()=>{
+                    this.getProductPrintingSidesAndTurnaround();
+                })
+            }
+            // console.info('aaaaaaaaaaaaaaaaaaa',response.data.messageItems[0].data.selectedId)
+        )
+    }
+
+    componentDidMount(){
+        this.getProductInfo();
+    }
+
+    getPrice=()=>{
+        let data={
+            productId:this.state.selectedId , 
+            series:this.state.series , 
+            turnaround:this.state.turnaround , 
+            twoSidePrintingType:this.state.printedSides ,
+        }
+
+        axios.post('http://172.17.17.101:8088/api/en/Order/SharedSheetOrder/GetBasicPrice?',data, {
+            headers: {
+                "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjQzMzUiLCJyb2xlIjoiVXNlciIsIm5iZiI6MTYzMjg5OTczNSwiZXhwIjoxNjM1NDkxNzM1LCJpYXQiOjE2MzI4OTk3MzV9.j9T8jKUUgObVES3yfel4R-tPgfL23phpPGTIaiaQfkM`
+            }
+        })
+        .then((res) => {
+            this.setState({
+                price:res.data.messageItems[0].data[0].basePrice
+            })
+        // console.info("eeeeeee ali yee ",res.data.messageItems[0].data[0].basePrice)
+        })
     }
     
     render(){

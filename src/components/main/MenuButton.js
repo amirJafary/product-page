@@ -3,6 +3,8 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import Input from '@mui/material/Input';
 import '../../css/general.css'
+import { InputAdornment } from '@mui/material';
+import axios from 'axios'
 
 class MenuButton extends Component {
 
@@ -10,8 +12,11 @@ class MenuButton extends Component {
         super(props);
         this.state={
             anchorEl:null,
-            minWidth:1,
-            minHeight:1
+            minWidth:92,
+            minHeight:57,
+            height:null,
+            width:null,
+            price:30,
         }
     }
 
@@ -23,30 +28,65 @@ class MenuButton extends Component {
         this.setState({anchorEl:null})
     };
 
-    minus=(series)=>{
+    minus=()=>{
         if(this.state.minWidth>1)
         this.setState({
             minWidth:this.state.minWidth-1,
-        },()=>console.info(this.state.minWidth))
+        },()=>this.props.getStateWidth(this.state.minWidth))
     }
 
-    plus=(series)=>{
+    plus=()=>{
         this.setState({
             minWidth:this.state.minWidth+1,
-        },()=>console.info(this.state.minWidth))
+        },()=>this.props.getStateWidth(this.state.minWidth))
     }
     
     minus1=()=>{
         if(this.state.minHeight>1)
         this.setState({
             minHeight:this.state.minHeight-1,
-        },()=>console.info(this.state.minHeight))
+        },()=>this.props.getStateHeight(this.state.minHeight))
     }
 
     plus1=()=>{
         this.setState({
             minHeight:this.state.minHeight+1,
-        },()=>console.info(this.state.minHeight))
+        },()=>this.props.getStateHeight(this.state.minHeight))
+    }
+
+    changeHandlerHeight=(e)=>{
+        this.setState({
+            minHeight:Math.floor(e.target.value),
+            height:Math.floor(e.target.value)
+        })
+    }
+
+    getPrice=()=>{
+        let data={
+            productId:this.state.selectedId , 
+            series:this.state.series , 
+            turnaround:this.state.turnaround , 
+            twoSidePrintingType:this.state.printedSides ,
+        }
+
+        axios.post('http://172.17.17.101:8088/api/en/Order/SharedSheetOrder/GetBasicPrice?',data, {
+            headers: {
+                "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjQzMzUiLCJyb2xlIjoiVXNlciIsIm5iZiI6MTYzMjg5OTczNSwiZXhwIjoxNjM1NDkxNzM1LCJpYXQiOjE2MzI4OTk3MzV9.j9T8jKUUgObVES3yfel4R-tPgfL23phpPGTIaiaQfkM`
+            }
+        })
+        .then((res) => {
+            this.setState({
+                price:res.data.messageItems[0].data[0].basePrice
+            })
+        // console.info("eeeeeee ali yee ",res.data.messageItems[0].data[0].basePrice)
+        })
+    }
+
+    changeHandlerWidth=(e)=>{
+        this.setState({
+            minWidth:Math.floor(e.target.value),
+            width:Math.floor(e.target.value)
+        },()=>this.props.getStateWidth(this.state.width))
     }
     
     render() {
@@ -91,7 +131,15 @@ class MenuButton extends Component {
                                 <Input 
                                     className='input-textFiled'
                                     value={this.state.minWidth}
-                                    inputProps={ariaLabel}
+                                    inputProps={{ariaLabel}}
+                                    onChange={(e)=>this.changeHandlerWidth(e)}
+                                    type='number'
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            mm
+                                        </InputAdornment>
+                                    }
+                                    
                                 />
                                 <button 
                                     className='BTN ms-2'
@@ -113,7 +161,13 @@ class MenuButton extends Component {
                                     className='input-textFiled'
                                     value={this.state.minHeight}
                                     inputProps={ariaLabel}
-                                    
+                                    onChange={(e)=>this.changeHandlerHeight(e)}
+                                    type='number'
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            mm
+                                        </InputAdornment>
+                                    }
                                 />
                                 <button 
                                     className='BTN ms-2'
